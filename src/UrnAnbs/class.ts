@@ -1,7 +1,5 @@
-import FastUri from 'fast-uri'
 import { UrnAnbsString } from '../.types/types.js'
 import { Cryptographic } from '@sovereignbase/cryptosuite'
-FastUri.parse('urn')
 
 export class UrnAnbs {
   static generate(type: string): UrnAnbsString {
