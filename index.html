@@ -1,219 +1,217 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="color-scheme" content="dark" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Package name</title>
+    <meta charset="utf-8" />
+    <title>ANBS URN Namespace</title>
+    <meta name="color-scheme" content="light dark" />
+    <script
+      src="https://www.w3.org/Tools/respec/respec-w3c"
+      class="remove"
+      defer
+    ></script>
+    <script class="remove">
+      var respecConfig = {
+        specStatus: 'unofficial',
+        shortName: 'urn-anbs',
+        latestVersion: null,
+        edDraftURI: 'https://sovereignbase.dev/urn-anbs/spec/',
+        github: 'sovereignbase/urn-anbs',
+        editors: [
+          { name: 'Jori Lehtinen', url: 'https://github.com/jortsupetterson' },
+        ],
+        localBiblio: {
+          RFC3986: {
+            title: 'Uniform Resource Identifier (URI): Generic Syntax',
+            href: 'https://www.rfc-editor.org/rfc/rfc3986',
+            authors: ['T. Berners-Lee', 'R. Fielding', 'L. Masinter'],
+            date: 'January 2005',
+            status: 'Internet Standard',
+            publisher: 'IETF',
+          },
+          RFC8141: {
+            title: 'Uniform Resource Names (URNs)',
+            href: 'https://www.rfc-editor.org/rfc/rfc8141',
+            authors: ['P. Saint-Andre', 'J. Klensin'],
+            date: 'April 2017',
+            status: 'Proposed Standard',
+            publisher: 'IETF',
+          },
+          'SCHEMA-ORG': {
+            title: 'Schema.org',
+            href: 'https://schema.org/',
+            publisher: 'Schema.org',
+          },
+          'SCHEMA-CRDT': {
+            title: '@sovereignbase/schema-crdt',
+            href: 'https://www.npmjs.com/package/@sovereignbase/schema-crdt',
+            publisher: 'Sovereignbase',
+          },
+          CRYPTOSUITE: {
+            title: '@sovereignbase/cryptosuite',
+            href: 'https://www.npmjs.com/package/@sovereignbase/cryptosuite',
+            publisher: 'Sovereignbase',
+          },
+        },
+      }
+    </script>
     <style>
-      :root {
-        color-scheme: dark;
-        font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
-        background: #000;
-        color: #fff;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
       body {
-        margin: 0;
-        min-height: 100vh;
-        background:
-          radial-gradient(
-            circle at top,
-            rgba(255, 255, 255, 0.1),
-            transparent 36%
-          ),
-          #000;
-        color: #fff;
+        max-width: 72ch;
       }
 
-      main {
-        width: min(100%, 42rem);
-        margin: 0 auto;
-        padding: 1.25rem;
-      }
-
-      .shell {
-        display: grid;
-        gap: 1.25rem;
-        padding: 1.25rem;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        border-radius: 1.25rem;
-        background: rgba(255, 255, 255, 0.04);
-        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.45);
-      }
-
-      h1 {
-        margin: 0;
-        font-size: clamp(2rem, 8vw, 3.4rem);
-        line-height: 0.95;
-      }
-
-      .lede {
-        margin: 0;
-        color: rgba(255, 255, 255, 0.76);
-        line-height: 1.6;
-      }
-
-      .controls {
-        display: grid;
-        gap: 1rem;
-      }
-
-      label {
-        display: grid;
-        gap: 0.55rem;
-        font-size: 0.95rem;
-      }
-
-      input,
-      button,
-      a {
-        border-radius: 999px;
-      }
-
-      input {
-        width: 100%;
-        padding: 0.9rem 1rem;
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        background: #050505;
-        color: #fff;
-        font: inherit;
-      }
-
-      input::placeholder {
-        color: rgba(255, 255, 255, 0.38);
-      }
-
-      .actions {
-        display: grid;
-        gap: 0.75rem;
-      }
-
-      button {
-        width: 100%;
-        padding: 0.95rem 1rem;
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        background: #fff;
-        color: #000;
-        font: inherit;
-        font-weight: 700;
-        cursor: pointer;
-      }
-
-      button.secondary {
-        background: transparent;
-        color: #fff;
-      }
-
-      button:disabled {
-        opacity: 0.55;
-        cursor: progress;
-      }
-
-      .status {
-        margin: 0;
-        min-height: 1.5rem;
-        color: rgba(255, 255, 255, 0.7);
-      }
-
-      .result {
-        display: grid;
-        gap: 0.5rem;
-        padding: 1rem;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 1rem;
-        background: rgba(255, 255, 255, 0.03);
-      }
-
-      .result-label {
-        font-size: 0.78rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.6);
-      }
-
-      output {
-        display: block;
-        overflow-wrap: anywhere;
-        font-family: 'IBM Plex Mono', 'Cascadia Code', monospace;
-        font-size: 0.95rem;
-        line-height: 1.5;
-      }
-
-      .links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.75rem;
-      }
-
-      .links a {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.6rem;
-        min-height: 2.5rem;
-        padding: 0.75rem 1rem;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: #fff;
-        text-decoration: none;
-      }
-
-      .links img {
-        width: 1rem;
-        height: 1rem;
-        flex: 0 0 1rem;
-      }
-
-      @media (min-width: 40rem) {
-        main {
-          padding: 2rem;
-        }
-
-        .shell {
-          padding: 1.75rem;
-        }
-
-        .actions {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
+      pre {
+        white-space: pre-wrap;
       }
     </style>
   </head>
   <body>
-    <main>
-      <section class="shell">
-        <nav class="links" aria-label="Project links">
-          <div>
-            <a href="https://jsr.io/@sovereignbase/peer2peer">
-              <img src="https://cdn.simpleicons.org/jsr/white" alt="" />
-              jsr
-            </a>
-            <a href="https://www.npmjs.com/package/@sovereignbase/peer2peer">
-              <img src="https://cdn.simpleicons.org/npm/white" alt="" />
-              npm
-            </a>
-            <a href="https://github.com/sovereignbase/peer2peer">
-              <img src="https://cdn.simpleicons.org/github/white" alt="" />
-              GitHub
-            </a>
-          </div>
-          <div>
-            <a class="spec-link" href="https://sovereignbase.dev/peer2peer/docs"
-              >see documentation</a
-            >
-            <a class="spec-link" href="https://sovereignbase.dev/peer2peer/spec"
-              >read specification</a
-            >
-          </div>
-        </nav>
-        <h1></h1>
-        <p class="lede"></p>
-      </section>
-    </main>
-    <script type="module" src="index.js"></script>
+    <section id="abstract">
+      <p>
+        This document defines <code>urn:anbs</code> as an absolute URN form for
+        identifying ANBS resources using a Schema.org type and a cryptographic
+        opaque identifier.
+      </p>
+    </section>
+
+    <section id="sotd">
+      <p>
+        This is a non-standard Sovereignbase project specification. It defines
+        the Sovereignbase ANBS URN lexical form and processing requirements.
+      </p>
+    </section>
+
+    <section id="syntax">
+      <h2>Syntax</h2>
+      <p>
+        An ANBS URN is a URI using the <code>urn</code> scheme [[RFC3986]] and
+        the URN syntax defined by [[RFC8141]].
+      </p>
+      <pre class="abnf">
+anbs-urn = "urn:anbs:" schema-org-type "." opaque-identifier
+
+schema-org-type = ALPHA *( ALPHA / DIGIT )
+opaque-identifier = 64base64url-char
+base64url-char = ALPHA / DIGIT / "-" / "_"
+      </pre>
+      <p>
+        The <code>opaque-identifier</code> production is the fixed-length
+        base64url presentation documented by [[CRYPTOSUITE]].
+      </p>
+    </section>
+
+    <section id="components">
+      <h2>Components</h2>
+      <dl>
+        <dt>URI scheme</dt>
+        <dd><code>urn</code></dd>
+        <dt>URN namespace identifier</dt>
+        <dd><code>anbs</code></dd>
+        <dt>Namespace-specific string</dt>
+        <dd>
+          <code>&lt;SchemaOrgType&gt;.&lt;OpaqueIdentifier&gt;</code>
+        </dd>
+      </dl>
+      <p>
+        In RFC 8141 terms, the assigned name is
+        <code>"urn" ":" NID ":" NSS</code>, where <code>NID</code> is
+        <code>anbs</code> and <code>NSS</code> is
+        <code>&lt;SchemaOrgType&gt; "." &lt;OpaqueIdentifier&gt;</code>. The
+        <code>anbs</code> value is a URN namespace identifier, not a separate
+        generic URI component.
+      </p>
+      <p>
+        <code>&lt;SchemaOrgType&gt;</code> identifies the Schema.org class
+        shape, for example <code>Person</code>, <code>Thing</code>, or
+        <code>Action</code> [[SCHEMA-ORG]] [[SCHEMA-CRDT]].
+        <code>&lt;OpaqueIdentifier&gt;</code> is cryptographic opaque identifier
+        material and MUST NOT be interpreted as meaningful text.
+      </p>
+      <p>
+        The <code>.</code> separator is an RFC 3986 unreserved character and is
+        used only as an NSS-internal separator.
+      </p>
+    </section>
+
+    <section id="canonical-form">
+      <h2>Canonical Form</h2>
+      <p>An ANBS URN has the form:</p>
+      <pre>urn:anbs:&lt;SchemaOrgType&gt;.&lt;OpaqueIdentifier&gt;</pre>
+      <ul>
+        <li>
+          Producers MUST emit the lowercase prefix <code>urn:anbs:</code>.
+        </li>
+        <li>Producers MUST preserve the Schema.org type spelling and case.</li>
+        <li>Producers MUST NOT percent-encode unreserved characters.</li>
+        <li>
+          Producers MUST NOT include version numbers in the URN unless the
+          application intentionally identifies a separate Schema.org node.
+        </li>
+        <li>
+          Consumers MUST compare canonical ANBS URNs by exact string equality.
+        </li>
+        <li>
+          Consumers for this package MUST reject non-canonical scheme or prefix
+          casing.
+        </li>
+      </ul>
+    </section>
+
+    <section id="examples">
+      <h2>Examples</h2>
+      <pre>
+urn:anbs:Thing.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_
+urn:anbs:Person.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_
+urn:anbs:Action.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_
+      </pre>
+    </section>
+
+    <section id="non-goals">
+      <h2>Non-Goals</h2>
+      <ul>
+        <li>No resolver protocol is defined.</li>
+        <li>No query, resolver, or fragment semantics are defined.</li>
+        <li>No network location is encoded.</li>
+        <li>No authorization semantics are defined.</li>
+        <li>No resource versioning semantics are defined.</li>
+        <li>No JSON-LD canonicalization semantics are defined.</li>
+      </ul>
+    </section>
+
+    <section id="security-privacy">
+      <h2>Security and Privacy Considerations</h2>
+      <ul>
+        <li>The type segment is visible metadata.</li>
+        <li>
+          The opaque identifier MUST NOT embed personal data or semantics.
+        </li>
+        <li>
+          Derived identifiers depend on the secrecy and stability of the
+          derivation input.
+        </li>
+        <li>Random identifiers depend on cryptographic randomness.</li>
+        <li>
+          URNs identify resources; they do not prove authority, ownership, or
+          access rights.
+        </li>
+      </ul>
+    </section>
+
+    <section id="iana">
+      <h2>IANA and Namespace Registration</h2>
+      <p>
+        Formal global URN namespace registration is an IANA matter under
+        [[RFC8141]]. This document defines the Sovereignbase project namespace
+        syntax unless and until a corresponding namespace is formally
+        registered.
+      </p>
+    </section>
+
+    <section id="conformance">
+      <p>
+        Normative requirements are expressed with RFC 2119 keywords. A
+        conforming ANBS URN producer or consumer implements the syntax and
+        canonical processing requirements in this document.
+      </p>
+    </section>
   </body>
 </html>
