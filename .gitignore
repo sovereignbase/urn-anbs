@@ -21,3 +21,5 @@ test-results/
 Thumbs.db
 
 .wrangler/
+
+.c8/

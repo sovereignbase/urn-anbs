@@ -69,7 +69,8 @@
     "tsup": "^8.5.1",
     "typedoc": "^0.28.19",
     "typescript": "^5.9.3",
-    "wrangler": "4.86.0"
+    "wrangler": "4.86.0",
+    "@sovereignbase/schema-crdt": "^1.0.0"
   },
   "repository": {
     "type": "git",
@@ -80,7 +81,6 @@
   },
   "homepage": "https://sovereignbase.dev/urn-anbs",
   "dependencies": {
-    "@sovereignbase/cryptosuite": "^2.2.2",
-    "@sovereignbase/schema-crdt": "^1.0.0"
+    "@sovereignbase/cryptosuite": "^2.2.2"
   }
 }

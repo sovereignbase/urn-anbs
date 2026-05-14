@@ -33,6 +33,12 @@ npm install @sovereignbase/urn-anbs
 pnpm add @sovereignbase/urn-anbs
 # or
 yarn add @sovereignbase/urn-anbs
+# or
+bun add @sovereignbase/urn-anbs
+# or
+deno add jsr:@sovereignbase/urn-anbs
+# or
+vlt install jsr:@sovereignbase/urn-anbs
 ```
 
 ## Usage
@@ -69,14 +75,37 @@ Uses the same cryptosuite API surface and requires WebCrypto-compatible runtime 
 
 ## Tests
 
-Suite: unit + integration (Node), E2E runtime suite.
-Matrix: Node ESM/CJS, Bun ESM/CJS, Deno ESM, Cloudflare Workers ESM, Edge Runtime ESM, Chromium / Firefox / WebKit + mobile emulation.
-Coverage: c8 over built `dist/**/*.js`.
+```sh
+npm run test
+```
+
+What the current test suite covers:
+
+- Coverage on built `dist/**/*.js`: `100%` statements, `100%` branches,
+  `100%` functions, and `100%` lines via `c8`.
+- Canonical generation, deterministic derivation, validation, assertion, and parsing.
+- Typed `UrnAnbsError` failure paths.
+- Package root exports.
+- End-to-end runtime matrix for:
+  - Node ESM
+  - Node CJS
+  - Bun ESM
+  - Bun CJS
+  - Deno ESM
+  - Cloudflare Workers ESM
+  - Edge Runtime ESM
+  - Browsers via Playwright: Chromium, Firefox, WebKit, mobile Chrome, mobile Safari
+- Current status: `npm run test` passes on Node `v22.14.0` (`win32 x64`).
 
 ## Benchmarks
 
-How it was run: `npm run bench`
-Environment: Node v22.14.0 (win32 x64)
+```sh
+npm run bench
+```
+
+The benchmark suite measures the public ANBS URN operations.
+
+Last measured on Node `v22.14.0` (`win32 x64`):
 
 | Benchmark   | Result                    |
 | ----------- | ------------------------- |
@@ -84,8 +113,6 @@ Environment: Node v22.14.0 (win32 x64)
 | derive      | 13,990 ops/s (71.5 ms)    |
 | is valid    | 1,623,635 ops/s (61.6 ms) |
 | parse valid | 768,429 ops/s (130.1 ms)  |
-
-Results vary by machine and runtime version.
 
 ## License
 
