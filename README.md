@@ -66,7 +66,7 @@ Uses the same cryptosuite API surface and requires WebCrypto-compatible runtime 
 
 ## Specification
 
-The compact ReSpec namespace document is in [`spec/index.html`](spec/index.html).
+The compact ReSpec namespace document is in [`index.html`](index.html).
 
 ## Tests
 

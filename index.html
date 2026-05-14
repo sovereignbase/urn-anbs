@@ -12,13 +12,23 @@
     <script class="remove">
       var respecConfig = {
         specStatus: 'unofficial',
-        shortName: 'urn-anbs',
         latestVersion: null,
-        edDraftURI: 'https://sovereignbase.dev/urn-anbs/spec/',
-        github: 'sovereignbase/urn-anbs',
+        edDraftURI: null,
         editors: [
           { name: 'Jori Lehtinen', url: 'https://github.com/jortsupetterson' },
+          {
+            name: 'GPT-5.5',
+            url: 'https://openai.com/index/introducing-gpt-5-5/',
+          },
         ],
+        github: 'sovereignbase/urn-anbs',
+        shortName: 'urn-anbs',
+        xref: 'web-platform',
+        lint: {
+          'informative-dfn': true,
+          'local-refs-exist': true,
+          'no-unused-dfns': true,
+        },
         localBiblio: {
           RFC3986: {
             title: 'Uniform Resource Identifier (URI): Generic Syntax',

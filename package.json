@@ -30,9 +30,9 @@
   },
   "files": [
     "dist",
+    "index.html",
     "LICENSE",
-    "README.md",
-    "spec"
+    "README.md"
   ],
   "sideEffects": false,
   "scripts": {
