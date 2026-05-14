@@ -7,6 +7,9 @@
 
 Canonical ANBS URNs in the form `urn:anbs:<SchemaOrgType>.<OpaqueIdentifier>`. The Schema.org type comes from `@sovereignbase/schema-crdt`, and the opaque identifier presentation is validated through `@sovereignbase/cryptosuite`.
 
+- [Check the docs](https://sovereignbase.dev/urn-anbs/docs/)
+- [Read the specification](https://sovereignbase.dev/urn-anbs/)
+
 ## Compatibility
 
 - Runtimes: Node >= 20; Browsers: modern browsers with WebCrypto; Workers/Edge: runtimes with WebCrypto.
