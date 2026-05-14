@@ -4,12 +4,11 @@ import { EdgeRuntime } from 'edge-runtime'
 import {
   ensurePassing,
   printResults,
-  runBytecodecSuite,
+  runUrnAnbsSuite,
 } from '../shared/suite.mjs'
 
 const root = process.cwd()
 const esmDistPath = resolve(root, 'dist', 'index.js')
-/** update to current package */
 
 function toExecutableEdgeEsm(bundleCode) {
   if (/\bimport\s+[\s\S]+?\bfrom\b/.test(bundleCode))
@@ -38,7 +37,7 @@ function toExecutableEdgeEsm(bundleCode) {
   const sourceMapComment = exportMatch[2] ? `${exportMatch[2]}\n` : ''
   return (
     bundleCode.slice(0, exportMatch.index) +
-    `globalThis.__bytecodecEsmExports = {\n  ${exportEntries}\n};\n` +
+    `globalThis.__urnAnbsEsmExports = {\n  ${exportEntries}\n};\n` +
     sourceMapComment
   )
 }
@@ -47,7 +46,7 @@ const runtime = new EdgeRuntime()
 const moduleCode = await readFile(esmDistPath, 'utf8')
 runtime.evaluate(toExecutableEdgeEsm(moduleCode))
 
-const results = await runBytecodecSuite(runtime.context.__bytecodecEsmExports, {
+const results = await runUrnAnbsSuite(runtime.context.__urnAnbsEsmExports, {
   label: 'edge-runtime esm',
   runtimeGlobals: runtime.context,
 })

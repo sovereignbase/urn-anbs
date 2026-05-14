@@ -3,10 +3,15 @@
   "license": "Apache-2.0",
   "name": "@sovereignbase/urn-anbs",
   "version": "0.0.0",
-  "description": "",
+  "description": "Typed ANBS URN helpers for Schema.org typed opaque resource identifiers.",
   "keywords": [
+    "anbs",
+    "opaque-identifier",
+    "schema.org",
+    "sovereignbase",
     "typescript",
-    "sovereignbase"
+    "uri",
+    "urn"
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -26,7 +31,8 @@
   "files": [
     "dist",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "spec"
   ],
   "sideEffects": false,
   "scripts": {

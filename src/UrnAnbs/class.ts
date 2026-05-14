@@ -43,7 +43,11 @@ export class UrnAnbs {
    * @returns `true` if `value` is a `urn:anbs` identifier.
    */
   static is(value: string): value is UrnAnbsString {
-    return /^urn:anbs:[A-Za-z][A-Za-z0-9]*\.[A-Za-z0-9_-]+$/.test(value)
+    const match = /^urn:anbs:[A-Za-z][A-Za-z0-9]*\.([A-Za-z0-9_-]+)$/.exec(
+      value
+    )
+
+    return match ? Cryptographic.identifier.validate(match[1]) !== false : false
   }
 
   /**
