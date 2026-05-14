@@ -1,4 +1,4 @@
-import * as api from '/dist/index.js'
+import * as api from '../../../dist/index.js'
 import { printResults, runUrnAnbsSuite } from '../shared/suite.mjs'
 
 const results = await runUrnAnbsSuite(api, { label: 'browser esm' })

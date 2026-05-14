@@ -3,7 +3,7 @@
   "license": "Apache-2.0",
   "name": "@sovereignbase/urn-anbs",
   "version": "0.0.0",
-  "description": "Typed ANBS URN helpers for Schema.org typed opaque resource identifiers.",
+  "description": "ANBS Uniform Resource Names for globally unique resource naming.",
   "keywords": [
     "anbs",
     "opaque-identifier",

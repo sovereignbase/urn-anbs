@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { EdgeRuntime } from 'edge-runtime'
+import { Cryptographic } from '@sovereignbase/cryptosuite'
 import {
   ensurePassing,
   printResults,
@@ -11,12 +12,17 @@ const root = process.cwd()
 const esmDistPath = resolve(root, 'dist', 'index.js')
 
 function toExecutableEdgeEsm(bundleCode) {
-  if (/\bimport\s+[\s\S]+?\bfrom\b/.test(bundleCode))
+  const executableCode = bundleCode.replace(
+    /import\s*\{\s*Cryptographic\s*\}\s*from\s*["']@sovereignbase\/cryptosuite["'];?/,
+    'const { Cryptographic } = globalThis.__urnAnbsCryptosuite;'
+  )
+
+  if (/\bimport\s+[\s\S]+?\bfrom\b/.test(executableCode))
     throw new Error(
-      'edge-runtime esm harness expects a single-file bundled dist/index.js'
+      'edge-runtime esm harness found an unsupported runtime import in dist/index.js'
     )
 
-  const exportMatch = bundleCode.match(
+  const exportMatch = executableCode.match(
     /export\s*\{\s*([\s\S]*?)\s*\};\s*(\/\/# sourceMappingURL=.*)?\s*$/
   )
   if (!exportMatch)
@@ -36,13 +42,14 @@ function toExecutableEdgeEsm(bundleCode) {
 
   const sourceMapComment = exportMatch[2] ? `${exportMatch[2]}\n` : ''
   return (
-    bundleCode.slice(0, exportMatch.index) +
+    executableCode.slice(0, exportMatch.index) +
     `globalThis.__urnAnbsEsmExports = {\n  ${exportEntries}\n};\n` +
     sourceMapComment
   )
 }
 
 const runtime = new EdgeRuntime()
+runtime.context.__urnAnbsCryptosuite = { Cryptographic }
 const moduleCode = await readFile(esmDistPath, 'utf8')
 runtime.evaluate(toExecutableEdgeEsm(moduleCode))
 

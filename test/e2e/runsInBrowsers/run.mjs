@@ -2,6 +2,7 @@ import { rmSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { createServer } from 'node:net'
 import { spawn } from 'node:child_process'
+import { build } from 'tsup'
 
 const playwrightBin = resolve(
   process.cwd(),
@@ -15,6 +16,14 @@ const browserServerScript = resolve(
   'e2e',
   'runsInBrowsers',
   'server.mjs'
+)
+const browserRunnerScript = 'test/e2e/runsInBrowsers/runner.js'
+const browserBundleDir = resolve(
+  process.cwd(),
+  'test',
+  'e2e',
+  'runsInBrowsers',
+  '.tmp'
 )
 
 async function findOpenPort() {
@@ -58,6 +67,19 @@ async function waitForServer(baseURL, child) {
 }
 
 async function main() {
+  await build({
+    entry: [browserRunnerScript],
+    outDir: 'test/e2e/runsInBrowsers/.tmp',
+    format: 'esm',
+    platform: 'browser',
+    target: 'es2024',
+    splitting: false,
+    clean: true,
+    config: false,
+    silent: true,
+    noExternal: [/.*/],
+  })
+
   const port = await findOpenPort()
   const baseURL = `http://127.0.0.1:${port}`
   const server = spawn(process.execPath, [browserServerScript], {
@@ -103,6 +125,10 @@ async function main() {
     }
 
     rmSync(resolve(process.cwd(), 'test-results'), {
+      recursive: true,
+      force: true,
+    })
+    rmSync(browserBundleDir, {
       recursive: true,
       force: true,
     })

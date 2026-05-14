@@ -5,7 +5,7 @@
 
 # urn-anbs
 
-Typed helpers for ANBS URNs in the canonical form `urn:anbs:<SchemaOrgType>.<OpaqueIdentifier>`. The Schema.org type comes from `@sovereignbase/schema-crdt`, and the opaque identifier presentation is validated through `@sovereignbase/cryptosuite`.
+Canonical ANBS URNs in the form `urn:anbs:<SchemaOrgType>.<OpaqueIdentifier>`. The Schema.org type comes from `@sovereignbase/schema-crdt`, and the opaque identifier presentation is validated through `@sovereignbase/cryptosuite`.
 
 ## Compatibility
 
@@ -16,9 +16,9 @@ Typed helpers for ANBS URNs in the canonical form `urn:anbs:<SchemaOrgType>.<Opa
 
 ## Goals
 
+- Persistent, globally unique ANBS resource names.
 - Canonical `urn:anbs` generation and deterministic derivation.
-- Validation that delegates opaque identifier presentation to cryptosuite.
-- Small API surface for parsing, assertion, and type narrowing.
+- Namespace-specific validation, parsing, assertion, and type narrowing.
 - Stable typed errors for invalid ANBS URNs.
 - Side-effect-free package entrypoint.
 
@@ -64,10 +64,6 @@ Uses the same cryptosuite API surface and requires WebCrypto-compatible runtime 
 
 `UrnAnbs.assert(value)` throws `UrnAnbsError` with code `URN_ANBS_INVALID_IDENTIFIER` when validation fails.
 
-## Specification
-
-The compact ReSpec namespace document is in [`index.html`](index.html).
-
 ## Tests
 
 Suite: unit + integration (Node), E2E runtime suite.
@@ -77,14 +73,14 @@ Coverage: c8 over built `dist/**/*.js`.
 ## Benchmarks
 
 How it was run: `npm run bench`
-Environment: Node runtime on the local machine.
+Environment: Node v22.14.0 (win32 x64)
 
-| Benchmark   | Result             |
-| ----------- | ------------------ |
-| generate    | run `npm run bench` |
-| derive      | run `npm run bench` |
-| is valid    | run `npm run bench` |
-| parse valid | run `npm run bench` |
+| Benchmark   | Result                    |
+| ----------- | ------------------------- |
+| generate    | 104,791 ops/s (95.4 ms)   |
+| derive      | 13,990 ops/s (71.5 ms)    |
+| is valid    | 1,623,635 ops/s (61.6 ms) |
+| parse valid | 768,429 ops/s (130.1 ms)  |
 
 Results vary by machine and runtime version.
 
