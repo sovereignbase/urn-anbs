@@ -2,7 +2,7 @@
   "type": "module",
   "license": "Apache-2.0",
   "name": "@sovereignbase/urn-anbs",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "ANBS Uniform Resource Names.",
   "keywords": [
     "anbs",
