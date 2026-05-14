@@ -75,6 +75,6 @@
   "homepage": "https://sovereignbase.dev/urn-anbs",
   "dependencies": {
     "@sovereignbase/cryptosuite": "^2.2.2",
-    "fast-uri": "^3.1.2"
+    "@sovereignbase/schema-crdt": "^1.0.0"
   }
 }

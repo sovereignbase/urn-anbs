@@ -1,12 +1,12 @@
-export type PackageNameErrorCode = 'EXAMPLE_ERROR_CODE'
+export type UrnAnbsErrorCode = 'NOT_A_ANBS_URN'
 
-export class PackageNameError extends Error {
-  readonly code: PackageNameErrorCode
+export class UrnAnbsError extends Error {
+  readonly code: UrnAnbsErrorCode
 
-  constructor(code: PackageNameErrorCode, message?: string) {
+  constructor(code: UrnAnbsErrorCode, message?: string) {
     const detail = message ?? code
-    super(`{@z-base/package-name} ${detail}`)
+    super(`{@sovereignbase/urn-anbs} ${detail}`)
     this.code = code
-    this.name = 'PackageNameError'
+    this.name = 'UrnAnbsError'
   }
 }
